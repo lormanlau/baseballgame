@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     var hits: Int = 0
     var currentGamePoints: Int = 0
     var leaderboard: [Int] = []
-    var audioPlayerArray         = [AVAudioPlayer]()
+    var audioPlayerArray = [AVAudioPlayer]()
     
     let myQueue = OperationQueue()
     
@@ -143,6 +143,7 @@ class ViewController: UIViewController {
         }
         else if strikes == 3 {
             countdownLabel.text = "You WIN!"
+            leaderboard.append(currentGamePoints)
             playSound("strike3.mp3")
             playSound("Cheers1.m4a")
             resetGame()
@@ -157,16 +158,13 @@ class ViewController: UIViewController {
     
     @IBAction func startButton(_ sender: UIButton) {
         startTimer()
-//      audioPlayer.play()
         playSound("3,2,1,Swing.m4a")
         batter.generateHitScore()
     }
     
-    func playSound(_ soundName: String)
-    {
+    func playSound(_ soundName: String) {
         var audioPlayer        = AVAudioPlayer()
         let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: soundName, ofType: nil)!)
-        
         
         do{
             audioPlayer = try AVAudioPlayer(contentsOf: alertSound )
@@ -192,23 +190,8 @@ class ViewController: UIViewController {
         countdownLabel.text = leadText
     }
     
- 
-
-    
-//    
-//    func accessSoundFiles(){
-//        do{
-//            audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath:   Bundle.main.path(forResource: "3,2,1,Swing", ofType: "m4a")!))
-//            audioPlayer.prepareToPlay()
-//        }
-//        catch{
-//            print(error)
-//        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        accessSoundFiles()
         backgroundImage.layer.zPosition = -1
     }
     
